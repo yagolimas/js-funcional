@@ -10,6 +10,9 @@ document
     .then(console.log)
     .catch(console.log);
 
+
+
+    
 /* document
 .querySelector("#myButton")
 .onclick = () => 
