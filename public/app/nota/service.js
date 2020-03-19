@@ -4,8 +4,8 @@ import { partialize, pipe } from '../utils/operators.js';
 const API = `http://localhost:3000/notas`;
 
 const getItemsFromNotas = notas => notas.$flatMap(nota => nota.itens);
-const filterItemsByCode = (code, items) =>  items.filter(item => item.codigo == code);
-const sumItemsValue = items => items.reduce((total, item) => total + item.valor, 0);
+const filterItemsByCode = (code, itens) => itens.filter(item => item.codigo == code);
+const sumItemsValue = itens => itens.reduce((total, item) => total + item.valor, 0);
 
 export const notasService = {
     listAll() {
@@ -15,9 +15,9 @@ export const notasService = {
         const filterItems = partialize(filterItemsByCode, code);
         
         const sumItems = pipe(
-            sumItemsValue,
+            getItemsFromNotas,
             filterItems,
-            getItemsFromNotas
+            sumItemsValue
         );
         
         return this.listAll().then(sumItems);
